@@ -1,0 +1,47 @@
+
+> pulm-voice-agent@0.1.0 vapi:simulate /Users/mohammadtanzilidrisi/Desktop/trifecth/pulumi_llc/pulm-voice-agent
+> tsx scripts/vapi-simulate.ts -- --target=synced --transport=voice --case=similar --allow-fail
+
+◇ injected env (13) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+◇ injected env (14) from .env.local // tip: ◈ secrets for agents [www.dotenvx.com]
+{
+  "transport": "voice",
+  "target": "synced",
+  "concurrency": 3,
+  "cases": [
+    "STT similar sounding names"
+  ],
+  "note": "Voice simulations use Vapi websocket transport."
+}
+{
+  "name": "STT similar sounding names",
+  "runId": "8dd11506-5bbc-4737-b8bb-ab1faf3b2f3c",
+  "runStatus": "ended",
+  "runEndedReason": "completed",
+  "itemStatus": "passed",
+  "passed": true,
+  "evaluations": [
+    {
+      "name": "ambiguous_values_spelled_confirmed",
+      "extractedValue": true,
+      "expectedValue": true,
+      "passed": true
+    }
+  ],
+  "latency": {
+    "turnCount": 6,
+    "avgTurn": 2101,
+    "avgTranscriber": 144,
+    "avgModel": 953,
+    "avgVoice": 586,
+    "avgEndpointing": 120
+  },
+  "transcript": "User: This is Sean Surda. I need a refill for my inhaler. Symbicort. Or Symbicort, something like that. My pharmacy is the Walgreens on Sahara. Or is it Sierra, the 1 near the mall?\nAI: Let's get your details, uh, confirmed first. Can you please provide your date of birth Also, could you confirm if your first name is spelled s e a n and your last name is s u r d a?\nUser: My date of birth is June first 19 65. And, yes, my first name is spelled s e a n. But my last name is Surda, c e r d a, not Surda.\nAI: Thank you for clarifying. Let me repeat everything. To ensure I have it correct. Your name name is Sean Surda.\nUser: Sure. Go ahead.\nAI: Your name is Sean Surda. Spelled s e a n c e r d a. Your date of birth is June first 19 65. Is that all correct?\nUser: Almost. It's Sean Cerda spelled s e a n c e r d a. The date of birth is right. June first 19 65, and I need a refill for my inhaler, Sy..."
+}
+{
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0
+  }
+}

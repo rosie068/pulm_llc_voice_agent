@@ -1,0 +1,18 @@
+deployment:
+  deployment_strategy: blue-green
+  health_check_timeout: 60
+  rollback_on_failure: true
+docker:
+  auto_cleanup: true
+  base_port: 8000
+  network_name: coval-network
+  volume_strategy: overlay
+generation:
+  generation_timeout: 300
+  max_retries: 3
+  prefer_modification_threshold: 0.3
+project:
+  cleanup_threshold: 10
+  framework: auto-detect
+  max_iterations: 50
+  name: coval-project

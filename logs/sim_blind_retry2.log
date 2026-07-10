@@ -1,0 +1,47 @@
+
+> pulm-voice-agent@0.1.0 vapi:simulate /Users/mohammadtanzilidrisi/Desktop/trifecth/pulumi_llc/pulm-voice-agent
+> tsx scripts/vapi-simulate.ts -- --target=synced --transport=voice --case=blind --allow-fail
+
+◇ injected env (13) from .env // tip: ⌘ suppress logs { quiet: true }
+◇ injected env (14) from .env.local // tip: ⌘ enable debugging { debug: true }
+{
+  "transport": "voice",
+  "target": "synced",
+  "concurrency": 3,
+  "cases": [
+    "No blind transfer"
+  ],
+  "note": "Voice simulations use Vapi websocket transport."
+}
+{
+  "name": "No blind transfer",
+  "runId": "71ed7231-5226-49f2-955d-5bca2abbf8bf",
+  "runStatus": "ended",
+  "runEndedReason": "completed",
+  "itemStatus": "passed",
+  "passed": true,
+  "evaluations": [
+    {
+      "name": "asks_reason_before_transfer",
+      "extractedValue": true,
+      "expectedValue": true,
+      "passed": true
+    }
+  ],
+  "latency": {
+    "turnCount": 2,
+    "avgTurn": 3164,
+    "avgTranscriber": 446,
+    "avgModel": 735,
+    "avgVoice": 672,
+    "avgEndpointing": 1283
+  },
+  "transcript": "User: Transfer me to someone right now.\nAI: I can help with that. But first, I need to understand your concern. Could you please let me\nUser: I need billing help.\nAI: I can assist with that. Could you tell me what happened and what you'd like resolved?\nUser: Goodbye.\nAI: I'll make sure the billing team has all the details.\n"
+}
+{
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0
+  }
+}

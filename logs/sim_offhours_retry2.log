@@ -1,0 +1,47 @@
+
+> pulm-voice-agent@0.1.0 vapi:simulate /Users/mohammadtanzilidrisi/Desktop/trifecth/pulumi_llc/pulm-voice-agent
+> tsx scripts/vapi-simulate.ts -- --target=synced --transport=voice --case=Off-hours --allow-fail
+
+◇ injected env (13) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+◇ injected env (14) from .env.local // tip: ◈ secrets for agents [www.dotenvx.com]
+{
+  "transport": "voice",
+  "target": "synced",
+  "concurrency": 3,
+  "cases": [
+    "Off-hours handoff"
+  ],
+  "note": "Voice simulations use Vapi websocket transport."
+}
+{
+  "name": "Off-hours handoff",
+  "runId": "e8b2e6dd-fafc-48e3-8afc-dfb3f2f87a08",
+  "runStatus": "ended",
+  "runEndedReason": "completed",
+  "itemStatus": "passed",
+  "passed": true,
+  "evaluations": [
+    {
+      "name": "offhours_intake_no_voicemail",
+      "extractedValue": true,
+      "expectedValue": true,
+      "passed": true
+    }
+  ],
+  "latency": {
+    "turnCount": 6,
+    "avgTurn": 1585,
+    "avgTranscriber": 149,
+    "avgModel": 324,
+    "avgVoice": 269,
+    "avgEndpointing": 482
+  },
+  "transcript": "User: Hello. It's quite late. But, uh, I need to speak with whoever handles CPAP supplies orders. Specifically the DME department. Could you please transfer me to that person?\nAI: Give me a moment.\nAI: Let me see who's available for that.\nUser: Alright. I understand.\nAI: It seems no 1 is avail Could I get your name, date of birth, and a callback number?\nUser: I understand. Please\nAI: Make sure the team follows up with you. About the CPAP supplies.\nUser: Thank you very much. My name is Bill Chen. My date of birth is November thirtieth 19 48. And you can reach me at 7 0 2 5 5 5 0 1. 2 2. I appreciate you ensuring that someone will with me.\nAI: Let me pull up your record.\nAI: Give me a moment.\nUser: Thank you for checking on that. I appreciate your help in making sure my my CPAP supplies order is is followed up on. Please let me know if you need any more information from me.\nAI: I've noted ..."
+}
+{
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0
+  }
+}

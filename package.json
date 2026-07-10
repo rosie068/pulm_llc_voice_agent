@@ -1,0 +1,49 @@
+{
+  "name": "pulm-voice-agent",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "dev:live": "tsx scripts/dev-live.ts",
+    "dev:down": "lsof -ti:3000 | xargs kill 2>/dev/null; pkill -x ngrok 2>/dev/null; echo stopped",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio",
+    "db:seed": "tsx -r dotenv/config src/db/seed.ts",
+    "vapi:sync": "tsx scripts/vapi-sync.ts",
+    "vapi:simulate": "tsx scripts/vapi-simulate.ts",
+    "coval:setup": "tsx scripts/coval-run.ts --setup-only",
+    "coval:run": "tsx scripts/coval-run.ts",
+    "queue:import": "tsx scripts/import-queue.ts"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^7.5.13",
+    "@neondatabase/serverless": "^1.1.0",
+    "@vapi-ai/server-sdk": "^1.2.0",
+    "drizzle-orm": "^0.45.2",
+    "next": "16.2.10",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitest/coverage-v8": "^4.1.10",
+    "dotenv": "^17.4.2",
+    "drizzle-kit": "^0.31.10",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.10",
+    "tailwindcss": "^4",
+    "tsx": "^4.23.0",
+    "typescript": "^5",
+    "vitest": "^4.1.10"
+  }
+}

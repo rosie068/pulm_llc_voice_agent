@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/outbound-tick",
+      "schedule": "*/10 16-23 * * 1-5"
+    }
+  ]
+}

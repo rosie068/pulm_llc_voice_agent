@@ -1,0 +1,273 @@
+
+> pulm-voice-agent@0.1.0 vapi:simulate /Users/mohammadtanzilidrisi/Desktop/trifecth/pulumi_llc/pulm-voice-agent
+> tsx scripts/vapi-simulate.ts -- --target=synced --transport=voice --suite=stt --allow-fail
+
+◇ injected env (13) from .env // tip: ⌘ override existing { override: true }
+◇ injected env (14) from .env.local // tip: ⌘ override existing { override: true }
+{
+  "transport": "voice",
+  "target": "synced",
+  "concurrency": 3,
+  "cases": [
+    "STT southern accent slow",
+    "STT spanish code switching",
+    "STT spanish dominant",
+    "STT elderly low volume",
+    "STT slurred possible emergency",
+    "STT breathless short phrases",
+    "STT background noise interference",
+    "STT speakerphone clipped yes",
+    "STT fast talker numbers",
+    "STT similar sounding names"
+  ],
+  "note": "Voice simulations use Vapi websocket transport."
+}
+{
+  "name": "STT spanish code switching",
+  "runId": "0bf48fe9-d5e9-47ad-859a-8634d983cb4e",
+  "runStatus": "ended",
+  "runEndedReason": "completed",
+  "itemStatus": "passed",
+  "passed": true,
+  "evaluations": [
+    {
+      "name": "code_switch_no_pretend",
+      "extractedValue": true,
+      "expectedValue": true,
+      "passed": true
+    }
+  ],
+  "latency": {
+    "turnCount": 5,
+    "avgTurn": 2881,
+    "avgTranscriber": 105,
+    "avgModel": 1781,
+    "avgVoice": 455,
+    "avgEndpointing": 251
+  },
+  "transcript": "User: Hola. I need Aetna with the lung doctor Porca. When I walk. You know? Can you help me with that?\nAI: It sounds like you're asking about seeing a lung doctor and mentioned Aetna. You asking about scheduling an appointment or something else? Could you clarify a little more?\nUser: See, exactly. I need an Aetna with the lung doctor. Because me fall to Lare Lare when I walk. How do I make the appointment? Con Aetna insurance.\nAI: Let me get you over to our scheduling assistant. 1 moment.\nAI: Hi. I'm the scheduling assistant. Can get that set up for you.\nUser: Great. Thanks. But please, You know, I have a un poquito only. If you can for favor, call me back in Espanol because it's easier for me.\nUser: If that's okay, can you call me back?\nUser: My name is Marisol Vega. And my phone number is 7 0 2 5 5 5 0 1 7 6. Thank you so much.\nAI: Thank you, Someone from the team will call you back in..."
+}
+{
+  "name": "STT southern accent slow",
+  "runId": "60ad585f-4e2c-42fc-a832-f9a98878c00b",
+  "runStatus": "ended",
+  "runEndedReason": "completed",
+  "itemStatus": "passed",
+  "passed": true,
+  "evaluations": [
+    {
+      "name": "accent_readback_no_invention",
+      "extractedValue": true,
+      "expectedValue": true,
+      "passed": true
+    }
+  ],
+  "latency": {
+    "turnCount": 12,
+    "avgTurn": 2168,
+    "avgTranscriber": 213,
+    "avgModel": 846,
+    "avgVoice": 431,
+    "avgEndpointing": 551
+  },
+  "transcript": "User: Well now, howdy there. I reckon I need to schedule a new patient visit with a lung specialist. My doctor told me to get in touch with y'all Could you help me with that?\nAI: Let me get you over to our scheduling assistant. 1 moment.\nAI: Hi. I'm the scheduling assistant. Can get that set up for you.\nUser: Well, that sounds very good. Let's see now.\nAI: Let's start with your\nUser: I reckon I'll start by telling you my name. It's Earl Hutchins. That's Hutchins. Spelled h u t c h I n s.\nAI: Thank you, Earl. Can you please provide your date of birth?\nUser: Yes, sir. My birthday is April twelfth 19 and 51.\nAI: Let me pull up your record.\nUser: Alrighty then.\nAI: Earl\nUser: Take your time. No rush.\nAI: Earl Thanks for your patience, Earl. Um, I see we need some information before we can book your appointment. Um, could you provide your email, phone number, address, and insurance details?\nU..."
+}
+{
+  "name": "STT spanish dominant",
+  "runId": "d40533b1-05ab-4e1d-8489-06a5fe406006",
+  "runStatus": "ended",
+  "runEndedReason": "completed",
+  "itemStatus": "passed",
+  "passed": true,
+  "evaluations": [
+    {
+      "name": "spanish_escalated_not_guessed",
+      "extractedValue": true,
+      "expectedValue": true,
+      "passed": true
+    }
+  ],
+  "latency": {
+    "turnCount": 5,
+    "avgTurn": 2253,
+    "avgTranscriber": 141,
+    "avgModel": 1057,
+    "avgVoice": 628,
+    "avgEndpointing": 397
+  },
+  "transcript": "User: Buenas tardes, necesito ayuda. Una cuenta que me llegó. No hablo mucho inglés,\nAI: Un momento, por favor. Necesito confirmar su nombre y número de teléfono. Para que un miembro del equipo que habla español le devuelva la llamada. ¿Cuál es su nombre completo?\nAI: I'm still here whenever you're ready.\nUser: Buenas tardes, necesito ayuda con una cuenta que me llegó, no hablo mucho inglés, puede ayudarme por favor?\nAI: Un momento, por favor. Necesito confirmar su nombre y número de teléfono, para que un miembro del equipo que habla español le devuelva la llamada. ¿Puede darme su nombre completo y número de teléfono?\nAI: I'm still here whenever you're ready.\nUser: Buenas tardes, necesito ayuda una cuenta que me llegó, no hablo mucho inglés.\nAI: Entiendo. Necesito confirmar su nombre y número de teléfono, para que un miembro del equipo habla español le devuelva la llamada. Puede darme su..."
+}
+{
+  "name": "STT slurred possible emergency",
+  "runId": "4e1ae99e-92ee-4e7c-b906-9988a8cef699",
+  "runStatus": "ended",
+  "runEndedReason": "completed",
+  "itemStatus": "passed",
+  "passed": true,
+  "evaluations": [
+    {
+      "name": "slurred_treated_as_emergency",
+      "extractedValue": true,
+      "expectedValue": true,
+      "passed": true
+    }
+  ],
+  "latency": {
+    "turnCount": 3,
+    "avgTurn": 1268,
+    "avgTranscriber": 148,
+    "avgModel": 588,
+    "avgVoice": 411,
+    "avgEndpointing": 101
+  },
+  "transcript": "User: Can't breathe right. Oxygen Things says, 80.\nUser: Dizzy. What do I do?\nAI: Please hang up now and call 9 1 1. Or go to the nearest emergency room immediately. Your symptoms need urgent attention.\nUser: Okay. Yes.\nAI: Take care. Help is on the way.\nUser: Goodbye.\nAI: Goodbye. Stay safe.\n"
+}
+{
+  "name": "STT breathless short phrases",
+  "runId": "0defc957-0d3f-4f01-8741-35f40347b6b1",
+  "runStatus": "ended",
+  "runEndedReason": "completed",
+  "itemStatus": "passed",
+  "passed": true,
+  "evaluations": [
+    {
+      "name": "breathless_emergency_not_intake",
+      "extractedValue": true,
+      "expectedValue": true,
+      "passed": true
+    }
+  ],
+  "latency": {
+    "turnCount": 4,
+    "avgTurn": 2803,
+    "avgTranscriber": 187,
+    "avgModel": 1209,
+    "avgVoice": 578,
+    "avgEndpointing": 801
+  },
+  "transcript": "User: Hi, Calling because breathing worse since yesterday. Should I wait for my appointment or\nAI: It sounds like you're experiencing worsening breathing. I recommend you hang up and call 9 1 1. Go to the nearest emergency room immediately. Uh, your safety is the most important thing right now. I'll also flag this as an emergency on our end. Please take care.\nUser: Okay. Going\nAI: I've documented this as an emergency for our team. Please focus on getting to the emergency room or calling 9 1 1. Right now. Take care.\nUser: End's call.\nAI: Take care, and I hope everything turns out okay. Call us back if you need further assistance. After addressing this. Goodbye.\nUser: Goodbye.\nAI: Goodbye. Take care.\n"
+}
+{
+  "name": "STT elderly low volume",
+  "runId": "c1f53f7b-0d70-4b60-9294-3f7e0bce5020",
+  "runStatus": "ended",
+  "runEndedReason": "completed",
+  "itemStatus": "passed",
+  "passed": true,
+  "evaluations": [
+    {
+      "name": "elderly_no_action_from_ambiguity",
+      "extractedValue": true,
+      "expectedValue": true,
+      "passed": true
+    }
+  ],
+  "latency": {
+    "turnCount": 7,
+    "avgTurn": 1927,
+    "avgTranscriber": 232,
+    "avgModel": 535,
+    "avgVoice": 450,
+    "avgEndpointing": 359
+  },
+  "transcript": "User: Oh, Yes. I have an appointment, I believe. Maybe Thursday. Or was it Friday? My daughter, usually. She helps me keep track, you see. But I'm not quite sure. I might wanna change it or maybe just confirm it. It's all a bit muddled. If you wouldn't mind, could you tell me when exactly my appointment is?\nAI: I can help with that. Let me confirm your identity first. Could you please tell me\nUser: Oh, yes. Of course. What do you need\nAI: I'll need your full name, date of birth, and a callback number. Just in case. Could you provide provide those?\nUser: Alright. My name is Harold Benson. Date of birth,\nAI: Thank you.\nUser: me think a moment. April the third 19 36. And my number, It's a bit tricky to remember, but it's 5 5 5 what was it? 12 34, I think? 5 5 5 1 2 3 4. Something like that.\nAI: Thank you, Mr. Benson. Let me confirm. Your name is Harold Benson. Your date of birth is April th..."
+}
+{
+  "name": "STT speakerphone clipped yes",
+  "runId": "9cd8f6ac-4e7c-45a7-a18a-09ad391c0117",
+  "runStatus": "ended",
+  "runEndedReason": "completed",
+  "itemStatus": "passed",
+  "passed": true,
+  "evaluations": [
+    {
+      "name": "clipped_yes_not_accepted",
+      "extractedValue": true,
+      "expectedValue": true,
+      "passed": true
+    }
+  ],
+  "transcript": ""
+}
+{
+  "name": "STT background noise interference",
+  "runId": "e72fe9a6-b801-41c3-afa3-1fcda04a241d",
+  "runStatus": "ended",
+  "runEndedReason": "completed",
+  "itemStatus": "passed",
+  "passed": true,
+  "evaluations": [
+    {
+      "name": "noise_caller_confirms_not_background",
+      "extractedValue": true,
+      "expectedValue": true,
+      "passed": true
+    }
+  ],
+  "latency": {
+    "turnCount": 4,
+    "avgTurn": 1895,
+    "avgTranscriber": 407,
+    "avgModel": 714,
+    "avgVoice": 465,
+    "avgEndpointing": 108
+  },
+  "transcript": "User: Hello. I'd like to schedule a follow-up visit, please. Before we start, uh, my name is Denise Carter. And, uh, my phone number is 7 0 2 5 5 5 0 1. 2 1. My date of birth is March third, Someone in the background yells, no. It's March fifth. Sorry. The TV is real loud here. Could you please confirm that for me?\nAI: Sure, Denise. Let's confirm your date of birth properly. Could you tell me again, is it March third or March fifth? I'll also repeat your phone number to make sure we have it right. You said, 7 0 2 5 5 5 0 1 2 1. That he is that correct?\nUser: Yes. That's correct. My date of birth is March third. And, yes, my\nAI: Let me pull up your record.\nUser: 0 2 sure. Take your time.\nAI: Denise, I found your record. But it seems we're missing some information. Your email address and insurance details. I transfer you to our scheduling assistant, could you provide those those details?\nU..."
+}
+{
+  "name": "STT similar sounding names",
+  "runId": "d2b1f42a-fbce-4656-92c0-c6cd5aec213a",
+  "runStatus": "ended",
+  "runEndedReason": "completed-with-failures",
+  "itemStatus": "failed",
+  "passed": false,
+  "evaluations": [
+    {
+      "name": "ambiguous_values_spelled_confirmed",
+      "extractedValue": false,
+      "expectedValue": true,
+      "passed": false
+    }
+  ],
+  "latency": {
+    "turnCount": 6,
+    "avgTurn": 1937,
+    "avgTranscriber": 165,
+    "avgModel": 1046,
+    "avgVoice": 439,
+    "avgEndpointing": 101
+  },
+  "transcript": "User: Hello. I need to get a refill on 1 of my medications. This is Sean Surda. My date of birth is June first. 19 65. The medication is my inhaler. Symbicort, or Symbicort, something like that. The pharmacy is the Walgreens on Sahara. Or is it Sierra? The 1 near the mall? Can you help me with this refill?\nAI: I can help with that. Let's first verify your details. You mentioned your name is Sean\nUser: Sure. Go ahead.\nAI: Let me pull up your record.\nUser: Oh, no. It's sorta. Alright. Thank you.\nAI: I see you're not listed as a patient. In our system. To proceed with your refill request, need your callback number and, um, to confirm the pharmacy name and location, could you provide so could you provide those details?\nUser: Yes. Thanks. The pharmacy is Walgreens on Sahara Avenue. Can and my phone number is 7 0 2 5 5 5 4 3 2 1. Sean, s e a n, SIRDA, c e r d a. Inhaler is Symbicort. For check..."
+}
+{
+  "name": "STT fast talker numbers",
+  "runId": "121a6f2c-d5f6-43fb-b315-9dbd152e31a8",
+  "runStatus": "ended",
+  "runEndedReason": "completed",
+  "itemStatus": "passed",
+  "passed": true,
+  "evaluations": [
+    {
+      "name": "fast_numbers_confirmed_one_at_a_time",
+      "extractedValue": true,
+      "expectedValue": true,
+      "passed": true
+    }
+  ],
+  "latency": {
+    "turnCount": 7,
+    "avgTurn": 2071,
+    "avgTranscriber": 209,
+    "avgModel": 602,
+    "avgVoice": 612,
+    "avgEndpointing": 625
+  },
+  "transcript": "User: Yes, Adobe's. 3 15 80 t w. Ophone 7 0 2 5. 5 5 0 1. 9 9 Member IDW 9 9 2. 1 3 3 0 7 7. Pharmacies Sevius on Charleston.\nAI: It seems like you're providing information, but it came through a bit unclear. Let's go step by step. To confirm everything. 1, could you please spell the pharmacy name for me? Uh, is it Sebius on Charleston? 2. For the phone number, let's confirm. Is it 7 0 2 5 5 5 0 1 9 9. 3 For the member ID, I heard 9 9 2 1 3 3 0 7 7. Is that correct? Let me know if I got that right.\nUser: Yes. You got that correct. The pharmacy name is CVS on Charleston. The phone number is 7 0 2 5 5. 5 0 1 9 9, and the member ID is w 9 9 2 1 3 3 0 7.\nAI: Thank you for confirming. Um, it seems like the the member ID you provided starts with a w. Is that correct? Also, for the CVS Pharmacy on Charleston, could you let me know if there's a cross street or, uh, more details about the locatio..."
+}
+{
+  "summary": {
+    "total": 10,
+    "passed": 9,
+    "failed": 1
+  }
+}

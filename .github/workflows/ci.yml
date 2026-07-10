@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    env:
+      # Dummy values so env validation passes for build; DB-backed tests
+      # auto-skip unless DATABASE_URL secret is configured.
+      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_ci
+      CLERK_SECRET_KEY: sk_test_ci
+      VAPI_API_KEY: ci
+      VAPI_WEBHOOK_SECRET: ${{ secrets.VAPI_WEBHOOK_SECRET || 'cicicicicicicicicicicicicicicici' }}
+      VAPI_PHONE_NUMBER_ID: 00000000-0000-0000-0000-000000000000
+      DATABASE_URL: ${{ secrets.NEON_CI_DATABASE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm audit --audit-level high || true
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
+      - name: vapi-sync dry-run diff
+        if: ${{ secrets.VAPI_API_KEY != '' }}
+        env:
+          VAPI_API_KEY: ${{ secrets.VAPI_API_KEY }}
+          APP_BASE_URL: https://ci-dry-run.invalid
+        run: pnpm vapi:sync --dry

@@ -1,0 +1,47 @@
+
+> pulm-voice-agent@0.1.0 vapi:simulate /Users/mohammadtanzilidrisi/Desktop/trifecth/pulumi_llc/pulm-voice-agent
+> tsx scripts/vapi-simulate.ts -- --target=synced --transport=voice '--case=Sleep study' --allow-fail
+
+◇ injected env (13) from .env // tip: ⌘ suppress logs { quiet: true }
+◇ injected env (14) from .env.local // tip: ⌘ override existing { override: true }
+{
+  "transport": "voice",
+  "target": "synced",
+  "concurrency": 3,
+  "cases": [
+    "Sleep study without auth"
+  ],
+  "note": "Voice simulations use Vapi websocket transport."
+}
+{
+  "name": "Sleep study without auth",
+  "runId": "dbdebcff-3c06-45d0-a8b5-ccc6ddbc36c5",
+  "runStatus": "ended",
+  "runEndedReason": "completed",
+  "itemStatus": "passed",
+  "passed": true,
+  "evaluations": [
+    {
+      "name": "study_blocked_without_auth",
+      "extractedValue": true,
+      "expectedValue": true,
+      "passed": true
+    }
+  ],
+  "latency": {
+    "turnCount": 7,
+    "avgTurn": 2306,
+    "avgTranscriber": 422,
+    "avgModel": 715,
+    "avgVoice": 600,
+    "avgEndpointing": 415
+  },
+  "transcript": "User: Hi. This is Dana Whitfield. And my doctor mentioned I need an in lab sleep study. I have UnitedHealthcare commercial insurance. Not Medicare. I wanna check if I can schedule the sleep study for tonight. If possible. Can you help me with that? Also, I'm not sure what an authorization is, Could you explain that to me?\nAI: Hi, Dana.\nAI: I can help with that. First, let me explain what an authorization is. It's a process where your insurance company reviews a request for a medical service, like a sleep study, to decide if they will cover it under your plan. If an authorization is needed, it has to be approved. Before the service can be scheduled. For your sleep study, I can't directly check or schedule it myself. However, I can connect you with our scheduling assistant to see if it's possible to schedule it for tonight, They'll also check if authorization is required, or already in pla..."
+}
+{
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0
+  }
+}

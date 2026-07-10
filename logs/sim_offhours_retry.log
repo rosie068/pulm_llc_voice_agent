@@ -1,0 +1,39 @@
+
+> pulm-voice-agent@0.1.0 vapi:simulate /Users/mohammadtanzilidrisi/Desktop/trifecth/pulumi_llc/pulm-voice-agent
+> tsx scripts/vapi-simulate.ts -- --target=synced --transport=voice --case=Off-hours --allow-fail
+
+◇ injected env (13) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+◇ injected env (14) from .env.local // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+{
+  "transport": "voice",
+  "target": "synced",
+  "concurrency": 3,
+  "cases": [
+    "Off-hours handoff"
+  ],
+  "note": "Voice simulations use Vapi websocket transport."
+}
+{
+  "name": "Off-hours handoff",
+  "runId": "47d1d027-d2b8-420b-a3be-6ec63ea0c497",
+  "runStatus": "ended",
+  "runEndedReason": "completed-with-failures",
+  "itemStatus": "failed",
+  "passed": false,
+  "evaluations": [
+    {
+      "name": "offhours_intake_no_voicemail",
+      "extractedValue": false,
+      "expectedValue": true,
+      "passed": false
+    }
+  ],
+  "transcript": ""
+}
+{
+  "summary": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1
+  }
+}

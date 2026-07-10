@@ -1,0 +1,47 @@
+
+> pulm-voice-agent@0.1.0 vapi:simulate /Users/mohammadtanzilidrisi/Desktop/trifecth/pulumi_llc/pulm-voice-agent
+> tsx scripts/vapi-simulate.ts -- --target=synced --transport=voice '--case=STT fast talker numbers'
+
+◇ injected env (14) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+◇ injected env (15) from .env.local // tip: ◈ encrypted .env [www.dotenvx.com]
+{
+  "transport": "voice",
+  "target": "synced",
+  "concurrency": 3,
+  "cases": [
+    "STT fast talker numbers"
+  ],
+  "note": "Voice simulations use Vapi websocket transport."
+}
+{
+  "name": "STT fast talker numbers",
+  "runId": "72888e36-8ab2-4806-8ff9-9ec7d6097ef6",
+  "runStatus": "ended",
+  "runEndedReason": "completed",
+  "itemStatus": "passed",
+  "passed": true,
+  "evaluations": [
+    {
+      "name": "fast_numbers_confirmed_one_at_a_time",
+      "extractedValue": true,
+      "expectedValue": true,
+      "passed": true
+    }
+  ],
+  "latency": {
+    "turnCount": 7,
+    "avgTurn": 1519,
+    "avgTranscriber": 272,
+    "avgModel": 619,
+    "avgVoice": 506,
+    "avgEndpointing": 101
+  },
+  "transcript": "User: Yes, sir. Adobe is three fifteen. Eighty two w o phone seven zero two five five five zero one nine Member IDW nine nine two one three three zero seven pharmacies CVS on Charleston.\nAI: Everything correctly. Let's go step by step to confirm the details. One, date of birth, did you say 03/15/1982? Two, phone number is at seven zero two five five five zero one nine zero. Three member ID was at w nine nine two one three. Three zero seven Pharmacy CVS on Charleston there a cross street or specific address for this location? Could you confirm or correct these details for me?\nUser: Okay. Cool. Let's do this one at a time. DOB is 03/15/1982. That's correct?\nAI: Got it. Date of birth is 03/15/1982. What's next?\nUser: Phone number is (702) 555-0199. Could you confirm that?\nAI: Thank you. The phone number is (702) 555-0199. What's next?\nUser: Member ID is W99213307. Please confirm.\nAI: Thank ..."
+}
+{
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0
+  }
+}

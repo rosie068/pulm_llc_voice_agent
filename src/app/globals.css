@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+/* Brand palette — The Pulmonology Group voice-agent dashboard */
+@theme {
+  --color-brand: #004952; /* deep teal — primary */
+  --color-brand-dark: #003a43;
+  --color-coral: #ff8d6e; /* main CTA */
+  --color-coral-light: #fec3b8; /* CTA hover */
+  --color-coral-active: #f37e5e; /* CTA pressed */
+  --color-ivory: #f8f3eb; /* main background */
+  --color-mint: #ebf0ef; /* soft secondary bg */
+  --color-mint-light: #f6f8f8;
+  --color-line: #c5d6d7; /* borders / disabled */
+  --color-line-soft: #d2dcda;
+  --color-ink: #232323; /* body text */
+  --color-ink-soft: #2b2b2b;
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  font-family: var(--font-geist-sans, Arial, Helvetica, sans-serif);
+}

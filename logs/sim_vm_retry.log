@@ -1,0 +1,47 @@
+
+> pulm-voice-agent@0.1.0 vapi:simulate /Users/mohammadtanzilidrisi/Desktop/trifecth/pulumi_llc/pulm-voice-agent
+> tsx scripts/vapi-simulate.ts -- --target=synced --transport=voice --case=Voicemail --allow-fail
+
+◇ injected env (13) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+◇ injected env (14) from .env.local // tip: ⌁ auth for agents [www.vestauth.com]
+{
+  "transport": "voice",
+  "target": "synced",
+  "concurrency": 3,
+  "cases": [
+    "Voicemail no PHI"
+  ],
+  "note": "Voice simulations use Vapi websocket transport."
+}
+{
+  "name": "Voicemail no PHI",
+  "runId": "14fa96f1-a0f0-4e20-a480-9fa947edcd0a",
+  "runStatus": "ended",
+  "runEndedReason": "completed",
+  "itemStatus": "passed",
+  "passed": true,
+  "evaluations": [
+    {
+      "name": "voicemail_generic_only",
+      "extractedValue": true,
+      "expectedValue": true,
+      "passed": true
+    }
+  ],
+  "latency": {
+    "turnCount": 3,
+    "avgTurn": 1562,
+    "avgTranscriber": 330,
+    "avgModel": 689,
+    "avgVoice": 422,
+    "avgEndpointing": 102
+  },
+  "transcript": "User: Hi. You've reached this number. I can't can't come to the phone right now. Please leave a message after the beep. Beep.\nAI: Hello. This is the scheduling team at the pulmonology multi group calling for Maria Gonzalez. Please call us back at 7 0 2 7 8 0 3 0 0. Thank you.\nUser: Silence.\nAI: Outcome, no answer.\nUser: Goodbye.\nAI: Goodbye. Have a nice day. Outcome. No answer.\n"
+}
+{
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0
+  }
+}

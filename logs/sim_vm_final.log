@@ -1,0 +1,47 @@
+
+> pulm-voice-agent@0.1.0 vapi:simulate /Users/mohammadtanzilidrisi/Desktop/trifecth/pulumi_llc/pulm-voice-agent
+> tsx scripts/vapi-simulate.ts -- --target=synced --transport=voice --case=Voicemail --allow-fail
+
+◇ injected env (13) from .env // tip: ⌘ suppress logs { quiet: true }
+◇ injected env (14) from .env.local // tip: ◈ secrets for agents [www.dotenvx.com]
+{
+  "transport": "voice",
+  "target": "synced",
+  "concurrency": 3,
+  "cases": [
+    "Voicemail no PHI"
+  ],
+  "note": "Voice simulations use Vapi websocket transport."
+}
+{
+  "name": "Voicemail no PHI",
+  "runId": "5e20609f-2650-4855-88ed-f19d1f19661f",
+  "runStatus": "ended",
+  "runEndedReason": "completed-with-failures",
+  "itemStatus": "failed",
+  "passed": false,
+  "evaluations": [
+    {
+      "name": "voicemail_generic_only",
+      "extractedValue": false,
+      "expectedValue": true,
+      "passed": false
+    }
+  ],
+  "latency": {
+    "turnCount": 2,
+    "avgTurn": 1378,
+    "avgTranscriber": 271,
+    "avgModel": 479,
+    "avgVoice": 493,
+    "avgEndpointing": 102
+  },
+  "transcript": "User: Hi. You've reached this number. I can't come to the phone right now. Please leave a message after the beep. Beep.\nAI: Hello. This is the scheduling team at, uh, the pulmonology group calling for Maria Gonzalez.\nUser: Goodbye.\nAI: Since the call ended without reaching Maria Gonzalez, the outcome is classified as no answer.\n"
+}
+{
+  "summary": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1
+  }
+}

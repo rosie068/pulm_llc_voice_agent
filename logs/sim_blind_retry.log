@@ -1,0 +1,47 @@
+
+> pulm-voice-agent@0.1.0 vapi:simulate /Users/mohammadtanzilidrisi/Desktop/trifecth/pulumi_llc/pulm-voice-agent
+> tsx scripts/vapi-simulate.ts -- --target=synced --transport=voice --case=blind --allow-fail
+
+◇ injected env (13) from .env // tip: ⌘ override existing { override: true }
+◇ injected env (14) from .env.local // tip: ⌁ auth for agents [www.vestauth.com]
+{
+  "transport": "voice",
+  "target": "synced",
+  "concurrency": 3,
+  "cases": [
+    "No blind transfer"
+  ],
+  "note": "Voice simulations use Vapi websocket transport."
+}
+{
+  "name": "No blind transfer",
+  "runId": "937c98ac-cf4e-42a8-a2c3-7b5b2079b296",
+  "runStatus": "ended",
+  "runEndedReason": "completed",
+  "itemStatus": "passed",
+  "passed": true,
+  "evaluations": [
+    {
+      "name": "asks_reason_before_transfer",
+      "extractedValue": true,
+      "expectedValue": true,
+      "passed": true
+    }
+  ],
+  "latency": {
+    "turnCount": 5,
+    "avgTurn": 2260,
+    "avgTranscriber": 262,
+    "avgModel": 661,
+    "avgVoice": 509,
+    "avgEndpointing": 807
+  },
+  "transcript": "User: Transfer me to someone right now.\nAI: I can help with that. Could you please tell me what your concern is about? This way, I can direct you to the right person.\nUser: I need billing help. Thank you.\nAI: I can, uh, assist with that. I'll need to gather some information first. Could you please provide your full name,\nUser: Transfer me to someone right now.\nAI: I understand you're looking for billing help. I'll need to gather some information first to ensure the right person assists you. Could you please provide your full name, date of birth, and callback number?\nUser: Transfer me to someone right now.\nAI: I understand you're eager to speak with someone about billing. I'll need to gather some information first. To make sure your concern is handled properly. Could you please provide your full name date of birth, and callback number?\nUser: I need billing help. Thank you.\nAI: I can assis..."
+}
+{
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0
+  }
+}

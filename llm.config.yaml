@@ -1,0 +1,79 @@
+# COVAL LLM Configuration
+# Predefined settings for different models optimized for code repair
+
+# Primary models for code repair
+qwen:
+  model: qwen2.5-coder:7b
+  max_tokens: 16384
+  temperature: 0.2
+  retry_attempts: 3
+  base_capability: 0.85
+  context_window: 32768
+  specialization: "code_generation_json"
+
+deepseek:
+  model: deepseek-coder:6.7b
+  max_tokens: 16384
+  temperature: 0.15
+  retry_attempts: 3
+  base_capability: 0.80
+  context_window: 16384
+  specialization: "code_analysis_debugging"
+
+# New enhanced models
+codellama13b:
+  model: codellama:13b
+  max_tokens: 32768
+  temperature: 0.1
+  retry_attempts: 4
+  base_capability: 0.75
+  context_window: 100000
+  specialization: "large_context_repair"
+
+deepseek-r1:
+  model: deepseek-r1:7b
+  max_tokens: 20480
+  temperature: 0.1
+  retry_attempts: 3
+  base_capability: 0.88
+  context_window: 32768
+  specialization: "reasoning_code_repair"
+
+# Backup models
+granite:
+  model: granite-code:8b
+  max_tokens: 8192
+  temperature: 0.2
+  retry_attempts: 2
+  base_capability: 0.70
+  context_window: 8192
+  specialization: "enterprise_stable"
+
+mistral:
+  model: mistral:7b
+  max_tokens: 8192
+  temperature: 0.3
+  retry_attempts: 2
+  base_capability: 0.60
+  context_window: 8192
+  specialization: "fallback_general"
+
+# Global settings
+global:
+  timeout_seconds: 120
+  max_repair_iterations: 5
+  success_threshold: 0.8
+  
+  # Adaptive evaluation settings
+  adaptive_evaluation:
+    enabled: true
+    history_weight: 0.3
+    min_samples: 5
+    decay_factor: 0.95
+    
+  # Dynamic capability calculation
+  capability_calculation:
+    token_bonus_multiplier: 0.0001  # Bonus per token above 8192
+    temperature_penalty: 0.2        # Penalty for high temperature
+    context_bonus_multiplier: 0.0001  # Bonus per context window size
+    max_capability: 0.95

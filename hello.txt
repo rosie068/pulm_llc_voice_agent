@@ -1,0 +1,5 @@
+Very close to closing him is the number that you sent live.  Hey, can you hear us? I have Tonsa here with me, and we were just talking about the inbound and outbound agent, and he's done a really great job.
+
+What I'm going to do is send Dr. Sayal the inbound number today for him to test call, but one thing is it's not hooked up to our database yet to their clinic, so it shouldn't poke anything or whatever. I know that for the demo agent, you have a backend somewhere on our cloud, so can you share with Tonsa so he can set that up?
+
+She wants it under 30 minutes, so for that, instead of doing it because it will obviously take time to calibrate, I'm saying that in the afternoon can you send? 

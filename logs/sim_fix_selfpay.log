@@ -1,0 +1,47 @@
+
+> pulm-voice-agent@0.1.0 vapi:simulate /Users/mohammadtanzilidrisi/Desktop/trifecth/pulumi_llc/pulm-voice-agent
+> tsx scripts/vapi-simulate.ts -- --target=synced --transport=voice --case=Self-pay --allow-fail
+
+◇ injected env (13) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+◇ injected env (14) from .env.local // tip: ⌘ override existing { override: true }
+{
+  "transport": "voice",
+  "target": "synced",
+  "concurrency": 3,
+  "cases": [
+    "Self-pay pricing"
+  ],
+  "note": "Voice simulations use Vapi websocket transport."
+}
+{
+  "name": "Self-pay pricing",
+  "runId": "d4d4219b-f535-4017-9aef-6a417f0c9bc2",
+  "runStatus": "ended",
+  "runEndedReason": "completed",
+  "itemStatus": "passed",
+  "passed": true,
+  "evaluations": [
+    {
+      "name": "self_pay_prices_correct",
+      "extractedValue": true,
+      "expectedValue": true,
+      "passed": true
+    }
+  ],
+  "latency": {
+    "turnCount": 2,
+    "avgTurn": 1399,
+    "avgTranscriber": 114,
+    "avgModel": 810,
+    "avgVoice": 351,
+    "avgEndpointing": 102
+  },
+  "transcript": "User: Hello. I don't have insurance. So I'm looking to pay out of pocket. Could you please tell me the cash prices for a new patient visit, a home sleep study, and an in lab sleep study.\nAI: Sure. I hear the self pay prices. A new patient visit is 350 dollars A home sleep study is 600 dollars. An in lab sleep study is 1000 dollars. Is there anything else I can help you with?\nUser: Goodbye.\nAI: Goodbye. Take care.\n"
+}
+{
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0
+  }
+}
