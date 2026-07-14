@@ -566,3 +566,4 @@ To learn more, including how to opt-out from the telemetry program, visit: https
  POST /api/vapi/webhook 200 in 428ms (next.js: 4ms, proxy.ts: 6ms, application-code: 417ms)
  POST /api/vapi/webhook 200 in 794ms (next.js: 4ms, proxy.ts: 19ms, application-code: 770ms)
  GET / 200 in 48ms (next.js: 4ms, proxy.ts: 17ms, application-code: 27ms)
+✓ Compiled in 313ms
