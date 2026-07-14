@@ -567,3 +567,11 @@ To learn more, including how to opt-out from the telemetry program, visit: https
  POST /api/vapi/webhook 200 in 794ms (next.js: 4ms, proxy.ts: 19ms, application-code: 770ms)
  GET / 200 in 48ms (next.js: 4ms, proxy.ts: 17ms, application-code: 27ms)
 ✓ Compiled in 313ms
+ GET / 200 in 45ms (next.js: 11ms, proxy.ts: 8ms, application-code: 26ms)
+ POST /api/vapi/webhook 200 in 418ms (next.js: 9ms, proxy.ts: 6ms, application-code: 402ms)
+ POST /api/vapi/webhook 200 in 961ms (next.js: 5ms, proxy.ts: 14ms, application-code: 943ms)
+ POST /api/vapi/webhook 200 in 401ms (next.js: 5ms, proxy.ts: 12ms, application-code: 384ms)
+ POST /api/vapi/webhook 200 in 675ms (next.js: 3ms, proxy.ts: 54ms, application-code: 618ms)
+ POST /api/vapi/webhook 200 in 423ms (next.js: 5ms, proxy.ts: 17ms, application-code: 401ms)
+ POST /api/vapi/webhook 200 in 400ms (next.js: 8ms, proxy.ts: 14ms, application-code: 378ms)
+ POST /api/vapi/webhook 200 in 824ms (next.js: 5ms, proxy.ts: 29ms, application-code: 790ms)

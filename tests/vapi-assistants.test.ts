@@ -83,15 +83,20 @@ describe("inbound squad handoffs", () => {
 
 describe("clinical human handoff prompt", () => {
   it.each([inboundSystemPrompt(), frontDeskSystemPrompt(), schedulerSystemPrompt()])(
-    "routes non-emergency symptoms to clinical staff and reserves 911 for warning signs",
+    "offers an appointment first for non-emergency symptoms and reserves 911 for warning signs",
     (prompt) => {
       expect(prompt).toContain('specialistLabel "next available clinical staff member"');
       expect(prompt).toContain("A sore or uncomfortable throat");
       expect(prompt).toContain("is NOT an emergency by itself");
       expect(prompt).toContain("Direct the caller to 911/ER ONLY");
-      expect(prompt).toContain("I can help get you to the right clinical person");
+      expect(prompt).toContain("offer an appointment FIRST");
+      expect(prompt).toContain("I can book you an appointment with one of our providers.");
+      expect(prompt).toContain("Just to be safe — are you having any trouble breathing");
+      expect(prompt).toContain("Never read out multiple routing options in one breath");
+      expect(prompt).toContain("Say nothing about the transfer yourself");
       expect(prompt).toContain("Ask ONLY for the full name first");
       expect(prompt).not.toContain("consult a healthcare professional");
+      expect(prompt).not.toContain("I can help get you to the right clinical person");
     },
   );
 
