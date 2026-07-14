@@ -9,6 +9,7 @@ import path from "node:path";
 import { VapiClient } from "@vapi-ai/server-sdk";
 import { TOOL_DEFINITIONS } from "../src/vapi/tools/definitions";
 import { ASSISTANT_SPECS, buildAssistantPayload } from "../src/vapi/assistants";
+import { buildInboundSquadPayload } from "../src/vapi/squads";
 
 loadEnv();
 
@@ -148,35 +149,10 @@ async function main() {
   const frontDeskId = registry.assistants["front-desk"];
   const schedulerId = registry.assistants["scheduler"];
   if (frontDeskId && schedulerId && !dry) {
-    const squadBody: any = {
-      name: "pulm-inbound-squad",
-      members: [
-        {
-          assistantId: frontDeskId,
-          assistantDestinations: [
-            {
-              type: "assistant",
-              assistantName: "pulm-scheduler",
-              message: "Let me get you over to Linda, our scheduling assistant — one moment, please.",
-              description:
-                "Use IMMEDIATELY, without asking the caller for permission or confirmation, the moment the caller mentions booking, scheduling, rescheduling, canceling, or confirming an appointment. Do not wait for the caller to agree to a transfer.",
-            },
-          ],
-        },
-        {
-          assistantId: schedulerId,
-          assistantDestinations: [
-            {
-              type: "assistant",
-              assistantName: "pulm-front-desk",
-              message: "Let me hand you back to our front desk — one moment.",
-              description:
-                "Use IMMEDIATELY, without asking the caller for permission, when the caller needs something other than scheduling: billing, refills, general questions, or complaints.",
-            },
-          ],
-        },
-      ],
-    };
+    // Handoffs use model-generated first turns from the complete call history.
+    // This prevents either saved assistant's static opening from replaying when
+    // the call moves between Mark and Linda.
+    const squadBody: any = buildInboundSquadPayload(frontDeskId, schedulerId);
     const existingSquadId = registry.squads["inbound"];
     try {
       if (existingSquadId) {

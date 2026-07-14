@@ -71,6 +71,8 @@ export interface AssistantSpec {
   structuredDataSchema: typeof INBOUND_STRUCTURED_SCHEMA | typeof OUTBOUND_STRUCTURED_SCHEMA;
   summaryPrompt: string;
   firstMessageMode?: string;
+  /** Whether callers may barge into the platform-controlled opening message. */
+  firstMessageInterruptionsEnabled?: boolean;
   /** Subset of tool names to attach; undefined = all function tools. */
   toolNames?: string[];
   /** Vapi voice id; defaults to Elliot. Scheduling persona uses a warm female voice. */
@@ -167,6 +169,10 @@ export const ASSISTANT_SPECS: AssistantSpec[] = [
     firstMessage:
       "Welcome to The Pulmonology Group — I'm Mark. This call may be recorded for quality assurance purposes. If this is a medical emergency, please hang up and dial nine-one-one immediately, or go to the nearest emergency room. How may I help you today?",
     systemPrompt: inboundSystemPrompt,
+    // Let callers barge in immediately. The system prompt treats this static
+    // opening as one-time content, so an interruption never makes the model
+    // restart the greeting or repeat the recording disclosure.
+    firstMessageInterruptionsEnabled: true,
     structuredDataSchema: INBOUND_STRUCTURED_SCHEMA,
     summaryPrompt:
       "Write a memo-to-record note for the patient chart: caller identity, reason for call, actions taken on the call, and the agreed next step. 2-4 sentences, plain factual prose.",
@@ -178,6 +184,7 @@ export const ASSISTANT_SPECS: AssistantSpec[] = [
     firstMessage:
       "Welcome to The Pulmonology Group — I'm Mark. This call may be recorded for quality assurance purposes. If this is a medical emergency, please hang up and dial nine-one-one immediately, or go to the nearest emergency room. How may I help you today?",
     systemPrompt: frontDeskSystemPrompt,
+    firstMessageInterruptionsEnabled: true,
     structuredDataSchema: INBOUND_STRUCTURED_SCHEMA,
     summaryPrompt:
       "Write a memo-to-record note for the patient chart: caller identity, reason for call, actions taken on the call, and the agreed next step. 2-4 sentences, plain factual prose.",
@@ -187,6 +194,7 @@ export const ASSISTANT_SPECS: AssistantSpec[] = [
       "quote_copay",
       "classify_and_route",
       "transfer_to_staff",
+      "transfer_audio_failure_to_staff",
       "escalate_to_staff",
       "flag_emergency",
     ],
@@ -215,6 +223,7 @@ export const ASSISTANT_SPECS: AssistantSpec[] = [
       "cancel_appointment",
       "confirm_appointment",
       "transfer_to_staff",
+      "transfer_audio_failure_to_staff",
       "escalate_to_staff",
       "flag_emergency",
     ],
@@ -237,6 +246,7 @@ export const ASSISTANT_SPECS: AssistantSpec[] = [
       "find_slots",
       "book_appointment",
       "reschedule_appointment",
+      "transfer_audio_failure_to_staff",
       "escalate_to_staff",
       "flag_emergency",
     ],
@@ -260,6 +270,7 @@ export const ASSISTANT_SPECS: AssistantSpec[] = [
       "find_slots",
       "book_appointment",
       "reschedule_appointment",
+      "transfer_audio_failure_to_staff",
       "escalate_to_staff",
       "flag_emergency",
     ],
@@ -272,9 +283,10 @@ export function buildAssistantPayload(spec: AssistantSpec, serverUrl: string, se
   return {
     name: spec.name,
     firstMessage: spec.firstMessage,
-    // Callers can barge into the greeting (the compliance disclaimer is long);
-    // without this Vapi plays the whole first message regardless of speech.
-    firstMessageInterruptionsEnabled: true,
+    firstMessageMode: spec.firstMessageMode ?? "assistant-speaks-first",
+    // All openings are interruptible. Inbound prompts separately enforce that
+    // the platform-controlled disclosure is one-time content and is not replayed.
+    firstMessageInterruptionsEnabled: spec.firstMessageInterruptionsEnabled ?? true,
     model: {
       provider: "openai",
       model: "gpt-4o",
@@ -305,17 +317,21 @@ export function buildAssistantPayload(spec: AssistantSpec, serverUrl: string, se
       waitSeconds: 0.4,
       smartEndpointingPlan: { provider: "livekit" },
     },
-    // numWords 1: a single word ("wait", "hello") interrupts the agent
-    // mid-sentence; backoff 0.5s so it yields fast and resumes naturally.
-    stopSpeakingPlan: { numWords: 1, voiceSeconds: 0.2, backoffSeconds: 0.5 },
+    // numWords 0 enables VAD: quiet/short speech can stop the assistant without
+    // waiting for the transcriber to recognize a complete word. A 0.2s voice
+    // threshold keeps barge-in responsive while filtering very short spikes.
+    stopSpeakingPlan: { numWords: 0, voiceSeconds: 0.2, backoffSeconds: 0.5 },
     backgroundDenoisingEnabled: true,
     silenceTimeoutSeconds: 45,
     maxDurationSeconds: 900,
     messagePlan: {
-      idleMessages: ["Are you still there?", "I'm still here whenever you're ready."],
-      idleTimeoutSeconds: 12,
-      idleMessageMaxSpokenCount: 2,
+      idleMessages: ["Take your time — I'm listening."],
+      idleTimeoutSeconds: 25,
+      idleMessageMaxSpokenCount: 1,
     },
+    // Squad handoffs keep a rolling conversation context. Preserve that same
+    // complete history in the final transcript/analysis for auditability.
+    artifactPlan: { fullMessageHistoryEnabled: true },
     ...(spec.voicemail
       ? {
           voicemailDetection: { provider: "google" },

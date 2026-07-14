@@ -14,7 +14,8 @@
     "escalate_to_staff": "f06924c5-1d11-4030-bdb5-2a7e70e89f25",
     "flag_emergency": "da9e2dab-5fc9-408f-8894-e58dec927fcf",
     "transfer_to_staff": "a94612b3-37fc-4ff9-b343-60e0a3136cb7",
-    "update_demographics": "6256746e-6162-4e25-82c9-19180f14120f"
+    "update_demographics": "6256746e-6162-4e25-82c9-19180f14120f",
+    "transfer_audio_failure_to_staff": "b36ee913-c5fb-4a86-adc8-7274fc1523c0"
   },
   "assistants": {
     "inbound": "c6b1f403-9355-4401-9913-692cc8215b04",

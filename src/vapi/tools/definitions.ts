@@ -286,6 +286,24 @@ export const TOOL_DEFINITIONS: FunctionToolDef[] = [
     requestStartMessage: "Let me see who's available for that.",
   },
   {
+    name: "transfer_audio_failure_to_staff",
+    description:
+      "Transfer to staff ONLY after three consecutive attempts to understand the same non-emergency information have failed because speech is missing, clipped, too fast, or unintelligible. Never use for silence alone. Any possible emergency warning sign uses flag_emergency instead.",
+    parameters: {
+      type: "object",
+      properties: {
+        summary: {
+          type: "string",
+          description:
+            "Briefly state what could not be understood; do not invent the caller's concern.",
+        },
+      },
+    },
+    // This dedicated message prevents the ordinary transfer tool's availability
+    // line from stacking on top of the required three-strike apology.
+    requestStartMessage: "I'm terribly sorry, I can't hear you. Let me transfer you to our staff.",
+  },
+  {
     name: "flag_emergency",
     description:
       "EMERGENCY ONLY: caller described urgent/life-threatening symptoms. Pages a live human immediately, even off-hours. Also direct the caller to 911/ER yourself.",

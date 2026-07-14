@@ -58,6 +58,8 @@ export function renderKnowledge(): string {
 ${PRACTICE.name}
 Main phone: ${PRACTICE.mainPhone} · Fax: ${PRACTICE.fax} · Fax-back: ${PRACTICE.faxBack} · NPI: ${PRACTICE.npi}
 
+Phone availability vs. office hours: the automated front desk answers calls live 24/7. That does NOT mean the physical clinics are open 24/7. Physical office hours have not been verified in this knowledge base. If asked when an office opens or closes, say you do not have verified clinic hours; do not invent them and do not describe the office as open 24/7. You may clarify that the phone line is answered 24/7 and offer staff follow-up for the office hours.
+
 ## Providers
 ${providers}
 

@@ -64,7 +64,9 @@ Agent must classify the caller's topic to the right owner. (Actual transfer mech
 ### 3.1 Core conversational rules
 
 - Answers **live, 24/7** — every call picked up, no voicemail queue.
-- Greeting includes the **recording disclosure** ("this call may be recorded for quality assurance purposes") and the 911 emergency notice. The greeting is interruptible, but the disclosure is **legally required on every call**: if the caller cuts it off, the agent delivers it in its next turn before anything else continues (exception: active emergency → 911 first).
+- Greeting includes the **recording disclosure** ("this call may be recorded for quality assurance purposes") and the 911 emergency notice. The platform-controlled opening is interruptible so callers can speak naturally; its content is one-time and is never restarted or replayed by the model. Assistant handoffs continue from call history and never replay the greeting.
+- **Three-try audio recovery:** for the same missing, clipped, too-fast, or unintelligible information, ask the caller to repeat more slowly after the first and second unclear turns. If the third consecutive attempt is still unclear, apologize once — "I'm terribly sorry, I can't hear you. Let me transfer you to our staff." — and attempt a staff transfer. Reset the counter as soon as the caller is understood or the topic changes. Silence does not count. Any fragment suggesting a true emergency warning sign bypasses this sequence and follows the emergency rule immediately.
+- **English response lock:** the agent always speaks English. A single Spanish-looking transcript in an otherwise English conversation is treated as a likely audio/transcription miss, not a language change. Clear or explicitly requested Spanish follows the Spanish-speaking staff callback flow; the agent does not conduct the call in Spanish.
 - **Never transfer before hearing the caller's concern.** Once the concern is clear, scheduling handoffs happen immediately — no "shall I transfer you?" permission questions.
 - Always tell the caller honestly what happens next ("someone from the team will follow up" — never promise a fixed "within 24 hrs" the agent can't guarantee off-hours).
 - End of every resolved call: agent produces a **call summary note** (memo-to-record content — date, time, action taken). *(Writing it into Tebra = integration.)*
@@ -83,6 +85,7 @@ Agent must classify the caller's topic to the right owner. (Actual transfer mech
 | **Copay / eligibility** | quote_copay; if unverifiable, warm escalate — never guesses dollar amounts | Complex coverage dispute |
 | **Complaint / billing** | Listen fully, capture details (name, DOB, callback, what happened, what they want), escalate to billing. No promised refunds/write-offs/timeframes | Anything requiring account changes / clinical resolution |
 | **Caller insists on a human** | One brief attempt to learn the reason, then no arguing: "I understand. Please hold on while I transfer you to the next available staff member." (demo: simulated transfer) | — |
+| **Non-emergency symptom / asks for doctor** | Acknowledge without medical advice; ask one emergency-symptom safety question if urgency is unclear; then attempt the next available clinical staff member. If unavailable, capture full intake and create a clinical callback flag | Emergency symptoms → 911/ER + emergency page |
 | **Anything else / low confidence** | Capture full intake, hand off per §3.3; failed/off-hours transfers auto-create a flag immediately (survives hang-ups), stamped off-hours + clinic-local time | Always |
 
 ### 3.3 Handoff logic (availability-aware)
@@ -117,7 +120,11 @@ Agent classifies every inbound call's outcome (drives downstream logging):
 
 ### 3.6 Hard stops (agent must NOT self-serve)
 
-- **Clinical or triage question** (e.g., shortness of breath) → escalate; if urgent, direct to ER and flag staff. **True emergencies must page a live human even off-hours — never defer an emergency to a flag.**
+- **Clinical or symptom question** → the agent does not diagnose, interpret symptoms, recommend treatment, or suggest medication. It remains the caller's access point: acknowledge the concern and connect to the next available clinical staff member; if live transfer is unavailable, capture name, DOB, callback number, and concern one field at a time and create a clinical follow-up flag.
+- **911/ER is for an actual emergency warning sign only:** current trouble breathing or severe shortness of breath; gasping/unable to speak normally because of breathing; chest pain/pressure; blue or gray lips/face; fainting/unresponsiveness; new severe confusion; face/tongue swelling with breathing trouble; or a reportedly dangerous/falling oxygen level with breathlessness or confusion. Direct 911/ER first and call `flag_emergency`. **True emergencies must page a live human even off-hours — never defer an emergency to an ordinary flag.**
+- **Not emergency by itself:** sore/uncomfortable throat, cough, congestion, a routine symptom question, or mild/stable symptoms with none of the warning signs above. Do not mention 911/ER/urgent care. Say the practice can help and route to clinical staff. If urgency is unclear, ask one brief warning-sign question; once the caller says no, continue the clinical handoff without repeating emergency language.
+- **Acute injury (possible broken bone, fall, cut, burn) with no warning sign:** not the 911 script, and not a pulmonology clinical-staff routing either — direct the caller to the nearest ER or urgent care for in-person care ("call nine-one-one if you can't move, are bleeding heavily, or feel faint"), then `flag_emergency` with a short description so staff see it. Escalate to the full 911 script only if a warning sign, heavy bleeding, immobility, or faintness is also reported.
+- **Spoken form:** the agent always says the emergency number as "nine-one-one", never the digits "911" (TTS can garble the digits into "ninety-one").
 - Provider signature, or decision on abnormal labs/imaging → capture + hand off.
 - Auth creation/appeal → hand off (prior-auth = separate phase).
 

@@ -612,7 +612,10 @@ const transfer_to_staff: Handler = async (args, vapiCallId, ctx) => {
       // Caller-facing label ("medication refill specialist") beats internal
       // owner names when the request type has no named §2 owner.
       const specialistLabel = str(args.specialistLabel);
-      const spoken = specialistLabel
+      const announcementAlreadySpoken = args.announcementAlreadySpoken === true;
+      const spoken = announcementAlreadySpoken
+        ? "Please hold."
+        : specialistLabel
         ? specialistLabel.toLowerCase().startsWith("next available")
           ? "I understand. Please hold on while I transfer you to the next available staff member."
           : `Got it — let me route you to our ${specialistLabel}. Hang on one second.`
@@ -671,6 +674,7 @@ const transfer_to_staff: Handler = async (args, vapiCallId, ctx) => {
   if (!isPhoneCall || !ctx?.controlUrl) return unavailable();
 
   try {
+    const announcementAlreadySpoken = args.announcementAlreadySpoken === true;
     const response = await fetch(ctx.controlUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -681,7 +685,9 @@ const transfer_to_staff: Handler = async (args, vapiCallId, ctx) => {
           number: decision.phoneNumber,
           extension: decision.ext,
         },
-        content: `Transferring you to ${decision.ownerName} now.`,
+        content: announcementAlreadySpoken
+          ? "Please hold."
+          : `Transferring you to ${decision.ownerName} now.`,
       }),
     });
     if (!response.ok) {
@@ -703,6 +709,32 @@ const transfer_to_staff: Handler = async (args, vapiCallId, ctx) => {
     ownerName: decision.ownerName,
     tellCaller: `The caller is being transferred to ${decision.ownerName} now.`,
   };
+};
+
+// Dedicated wrapper for the three-strike audio-repair path. Its tool-level
+// request-start message already tells the caller what is happening, so the
+// transfer action uses only a short hold message instead of a second apology.
+const transfer_audio_failure_to_staff: Handler = async (args, vapiCallId, ctx) => {
+  const result = await transfer_to_staff(
+    {
+      topic: "incoming_general",
+      summary:
+        str(args.summary) ??
+        "Caller could not be understood after three consecutive audio-repair attempts.",
+      specialistLabel: "next available staff member",
+      announcementAlreadySpoken: true,
+    },
+    vapiCallId,
+    ctx,
+  );
+  if (result.transferred === false) {
+    return {
+      ...result,
+      tellCaller:
+        "Do not ask the caller for more information because three audio-repair attempts already failed. Say: 'I'm sorry, no one is available to take the transfer right now. I've flagged this call for our staff to review and follow up.' Do not promise a callback time.",
+    };
+  }
+  return result;
 };
 
 const escalate_to_staff: Handler = async (args, vapiCallId) => {
@@ -808,8 +840,8 @@ const flag_emergency: Handler = async (args, vapiCallId) => {
     humanPaged: page.paged,
     pagedVia: page.via,
     tellCaller: page.paged
-      ? "Direct the caller to call 911 or go to the nearest ER immediately. Confirm the on-call team has been alerted."
-      : "Direct the caller to call 911 or go to the nearest ER immediately. Do not say the on-call team was alerted; say the emergency follow-up was documented for staff.",
+      ? 'Direct the caller to call nine-one-one (speak it as "nine-one-one", never the digits) or go to the nearest ER immediately. Confirm the on-call team has been alerted.'
+      : 'Direct the caller to call nine-one-one (speak it as "nine-one-one", never the digits) or go to the nearest ER immediately. Do not say the on-call team was alerted; say the emergency follow-up was documented for staff.',
   };
 };
 
@@ -827,6 +859,7 @@ export const TOOL_HANDLERS: Record<string, Handler> = {
   quote_copay,
   classify_and_route,
   transfer_to_staff,
+  transfer_audio_failure_to_staff,
   escalate_to_staff,
   flag_emergency,
 };
