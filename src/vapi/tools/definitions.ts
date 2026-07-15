@@ -23,7 +23,11 @@ export const TOOL_DEFINITIONS: FunctionToolDef[] = [
       properties: {
         firstName: { type: "string", description: "Caller's first name" },
         lastName: { type: "string", description: "Caller's last name" },
-        dob: { type: "string", description: "Date of birth, YYYY-MM-DD" },
+        dob: {
+          type: "string",
+          description:
+            "Date of birth, converted by YOU to YYYY-MM-DD before the call. Internal format only — NEVER say 'YYYY', 'month-day-year', or any format to the caller; ask naturally and accept the date however they say it.",
+        },
         callbackNumber: { type: "string", description: "Best callback phone number" },
         confirmedNewPatient: {
           type: "boolean",
@@ -33,7 +37,13 @@ export const TOOL_DEFINITIONS: FunctionToolDef[] = [
       },
       required: ["firstName", "lastName", "dob"],
     },
-    requestStartMessage: "Let me pull up your record.",
+    // Neutral filler, deliberately NOT "Let me pull up your record":
+    // identify_patient legitimately runs twice for a new patient (lookup, then
+    // confirmed-new retry that creates the record), and a specific sentence
+    // replaying verbatim sounds broken. "One moment." twice sounds human, and
+    // a platform-played message covers the ~4-6s LLM+tool+TTS dead air that
+    // model-spoken lines don't (models often skip speech in tool-call turns).
+    requestStartMessage: "One moment.",
   },
   {
     name: "update_demographics",

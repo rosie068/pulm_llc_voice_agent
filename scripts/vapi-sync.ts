@@ -75,6 +75,9 @@ async function main() {
         headers: { "x-vapi-secret": secret },
         backoffPlan: { type: "exponential", maxRetries: 3, baseDelaySeconds: 1 },
       },
+      // Empty array (not undefined) when there's no requestStartMessage:
+      // updates must CLEAR a previously-synced message, and a PATCH with the
+      // field omitted would silently keep the old one.
       messages: def.requestStartMessage
         ? [
             { type: "request-start", content: def.requestStartMessage },
@@ -84,7 +87,7 @@ async function main() {
               timingMilliseconds: 4000,
             },
           ]
-        : undefined,
+        : [],
     };
 
     const existingId = registry.tools[def.name];

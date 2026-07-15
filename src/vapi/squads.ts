@@ -18,6 +18,9 @@ export function buildInboundSquadPayload(frontDeskId: string, schedulerId: strin
             assistantName: "pulm-scheduler",
             assistantOverrides: CONTINUE_FROM_CALL_HISTORY,
             contextEngineeringPlan: { type: "all" },
+            // NOTE: Vapi rejects a `message` property on assistantDestinations
+            // (400). The bridge line is spoken by the model instead — the
+            // prompts pin its exact wording.
             description:
               "Use IMMEDIATELY, without asking the caller for permission or confirmation, the moment the caller mentions booking, scheduling, rescheduling, canceling, or confirming an appointment. Do not wait for the caller to agree to a handoff.",
           },

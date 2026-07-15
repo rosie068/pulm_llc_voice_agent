@@ -317,17 +317,22 @@ export function buildAssistantPayload(spec: AssistantSpec, serverUrl: string, se
       waitSeconds: 0.4,
       smartEndpointingPlan: { provider: "livekit" },
     },
-    // numWords 0 enables VAD: quiet/short speech can stop the assistant without
-    // waiting for the transcriber to recognize a complete word. A 0.2s voice
-    // threshold keeps barge-in responsive while filtering very short spikes.
-    stopSpeakingPlan: { numWords: 0, voiceSeconds: 0.2, backoffSeconds: 0.5 },
+    // numWords 1: interruption requires an actual transcribed word. Pure VAD
+    // (numWords 0) let coughs/breaths/noise halt the greeting with NO user turn
+    // ever reaching the model — dead air until the idle timer. A single word
+    // ("hello", "wait") still barges in fast, and its transcript becomes a real
+    // user turn the model can answer.
+    stopSpeakingPlan: { numWords: 1, voiceSeconds: 0.2, backoffSeconds: 0.5 },
     backgroundDenoisingEnabled: true,
     silenceTimeoutSeconds: 45,
     maxDurationSeconds: 900,
+    // Human-paced silence recovery: if the caller barges in (or just goes
+    // quiet) and then stays silent ~10s, gently re-engage once, then check once
+    // more. 25s felt like the line went dead after an interruption.
     messagePlan: {
-      idleMessages: ["Take your time — I'm listening."],
-      idleTimeoutSeconds: 25,
-      idleMessageMaxSpokenCount: 1,
+      idleMessages: ["I'm here — go ahead whenever you're ready.", "Are you still there?"],
+      idleTimeoutSeconds: 10,
+      idleMessageMaxSpokenCount: 2,
     },
     // Squad handoffs keep a rolling conversation context. Preserve that same
     // complete history in the final transcript/analysis for auditability.
